@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-pip install ghostscript
-pip install camelot
-
 # In[1]:
 import pandas as pd
 import requests
@@ -11,7 +8,6 @@ import numpy as np
 from bs4 import BeautifulSoup
 import re
 
-import ghostscript
 import camelot
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
