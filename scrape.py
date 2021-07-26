@@ -8,7 +8,6 @@ import pandas as pd
 import requests
 import numpy as np
 from bs4 import BeautifulSoup
-
 import re
 import camelot
 import ssl
