@@ -2,8 +2,8 @@
 # coding: utf-8
 
 # In[1]:
-python install "camelot-py[base]"
-
+$ brew install ghostscript tcl-tk
+$ pip install "camelot-py[base]"
 import pandas as pd
 import requests
 import numpy as np
