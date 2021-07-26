@@ -10,11 +10,11 @@ import numpy as np
 from bs4 import BeautifulSoup
 import re
 import ghostscript
+import ctypes
+from ctypes.util import find_library
 import camelot
 import urllib3
 urllib3.disable_warnings()
-from ctypes.util import find_library
-find_library("libgs")
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
