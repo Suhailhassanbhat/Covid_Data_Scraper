@@ -12,11 +12,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
-      - name: Install ghostscript dependency
-        run: brew install ghostscript tcl-tk
+          python-version: '3.8'
       - name: Install all necessary packages
-        run: pip install requests beautifulsoup4 pandas camelot-py[cv] regex numpy urllib3
+        run: pip install requests beautifulsoup4 pandas regex numpy urllib3
+      - name: Install ghostscript dependency
+        run: pip install ghostscript tcl-tk
+      - name: Install camelot packages
+        run: pip install camelot-py[cv]
       - name: Run the scraping script
         run: python scrape.py
       - name: Commit and push if content changed
