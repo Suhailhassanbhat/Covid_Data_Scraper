@@ -2,16 +2,14 @@
 # coding: utf-8
 
 # In[1]:
-
+pip install "camelot-py[base]"
 
 import pandas as pd
 import requests
 import numpy as np
 from bs4 import BeautifulSoup
-
 import re
 import camelot
-
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
