@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # In[1]:
-pip install "camelot-py[base]"
+python install "camelot-py[base]"
 
 import pandas as pd
 import requests
