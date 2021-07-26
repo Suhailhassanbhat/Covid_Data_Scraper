@@ -1,4 +1,5 @@
 date,new_cases,new_deaths,actual_deaths,avg_cases,avg_deaths,avg_actual_deaths,pct_chng_cases_weekly,pct_chng_deaths_weekly,pct_chng_adeaths_weekly,pct_chng_cases_biweekly,pct_chng_deaths_biweekly,pct_chng_adeaths_biweekly
+2021-07-26,783.0,2.0,2.0,886.0,3.0,3.0,89.0,-40.0,-40.0,221.0,0.0,0.0
 2021-07-25,504.0,2.0,2.0,809.0,3.0,3.0,76.0,-40.0,-40.0,208.0,0.0,0.0
 2021-07-24,974.0,3.0,3.0,773.0,3.0,3.0,71.0,-40.0,-40.0,209.0,0.0,0.0
 2021-07-23,994.0,4.0,4.0,713.0,4.0,4.0,68.0,0.0,0.0,215.0,0.0,0.0
