@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
 import pandas as pd
 import requests
 import numpy as np
@@ -11,10 +10,6 @@ import ghostscript
 import camelot
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
-
-
-# In[2]:
-
 
 #Read dataset as of previous date from the github link
 old_df=pd.read_csv("https://raw.githubusercontent.com/Suhailhassanbhat/Covid_Data_Scraper/main/master_cases_deaths.csv")
@@ -31,10 +26,6 @@ old_df[['tot_cases','tot_cases_conf','tot_cases_prob', 'tot_deaths',
             'new_cases_18_and_under_prob','actual_deaths']].apply(pd.to_numeric, errors = 'coerce')
 #convert date from string to datetime
 old_df.date=pd.to_datetime(old_df.date)
-
-
-# In[3]:
-
 
 # change this to run for other months
 month="July" 
@@ -59,10 +50,6 @@ latest_df.date=pd.to_datetime(latest_df.date)
 latest_df=latest_df.sort_values('date', ascending=False).reset_index(drop=True)
 #we need only first three
 latest_df=latest_df[:3]
-
-
-# In[4]:
-
 
 # this code is to read three links and grab all data from the first table
 latest_list=[]
@@ -151,9 +138,6 @@ final_df.to_csv("master_cases_deaths.csv", index=False)
 
 # # Seven day average calculations and weekly and biweekly changes
 
-# In[5]:
-
-
 #filter master cases and deaths file
 daily_df=final_df[['date','new_cases', 'new_deaths', 'actual_deaths']]
 
@@ -180,8 +164,3 @@ resorted_df=sorted_df.sort_values('date', ascending=False)
 #convert infinity values to nan values
 resorted_df=resorted_df.replace(np.inf, np.nan)
 resorted_df.to_csv("daily_report.csv", index=False)
-
-
-
-
-
