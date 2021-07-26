@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+pip install ghostscript
+pip install camelot
+
 # In[1]:
 import pandas as pd
 import requests
