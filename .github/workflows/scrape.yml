@@ -15,6 +15,7 @@ jobs:
           python-version: '3.9'
       - name: Install all necessary packages
         run: pip install requests beautifulsoup4 pandas camelot-py[base] regex numpy certifi
+        run: pip install ghostscript tcl-tk
       - name: Run the scraping script
         run: python scrape.py
       - name: Commit and push if content changed
