@@ -14,7 +14,7 @@ import camelot
 import urllib3
 urllib3.disable_warnings()
 from ctypes.util import find_library
-find_library("gs")
+find_library("libgs")
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
