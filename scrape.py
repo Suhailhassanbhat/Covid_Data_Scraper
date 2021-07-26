@@ -9,12 +9,12 @@ import requests
 import numpy as np
 from bs4 import BeautifulSoup
 import re
+import ghostscript
 import camelot
 import urllib3
 urllib3.disable_warnings()
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
-
 
 # In[2]:
 
