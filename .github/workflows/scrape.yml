@@ -16,7 +16,7 @@ jobs:
       - name: Install ghostscript packages
         run: brew install ghostscript tcl-tk
       - name: Install all necessary packages
-        run: pip install requests beautifulsoup4 pandas ghostscript camelot-py[base] regex numpy certifi
+        run: pip install requests beautifulsoup4 pandas ghostscript camelot-py[cv] regex numpy certifi
       - name: Run the scraping script
         run: python scrape.py
       - name: Commit and push if content changed
