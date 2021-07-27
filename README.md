@@ -4,7 +4,7 @@ This scraper runs every half hour and gets all the data published by Kentucky De
 
 Camelot libraries do most of the work since the dept. publishes daily reports in pdf format. BeautifulSoup gets links to new reports, pandas, numpy, regex for cleaning the data and putting it in tabular form.
 
-Template by Jonathan Soma @dangerscarf data head, python kid, co-founder @bkbrains, director @ledeprog
+Template designed by Jonathan Soma @dangerscarf data head, python kid, co-founder @bkbrains, director @ledeprog
 
 
 Using GitHub Actions and Python, this repo automatically scrapes the content of the BBC's homepage every 10 minutes and saves it [right into the repo itself](https://github.com/jsoma/autoscraper-bbc/blob/main/bbc-headlines.csv). 
