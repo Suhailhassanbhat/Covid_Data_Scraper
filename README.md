@@ -1,4 +1,4 @@
-# GitHub AutoScraper + history keeper
+# COVID-19 Scraper
 
 Template by Jonathan Soma @dangerscarf data head, python kid, co-founder @bkbrains, director @ledeprog
 
