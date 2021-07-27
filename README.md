@@ -2,7 +2,7 @@
 
 This scraper runs every half hour and gets all the data published by Kentucky Department of Health https://govstatus.egov.com/kycovid19
 
-Camelot libraries do most of the work since the dept. publishes daily reports in pdf format
+Camelot libraries do most of the work since the dept. publishes daily reports in pdf format. BeautifulSoup gets links to new reports, pandas, numpy, regex for cleaning the data and putting it in tabular form.
 
 Template by Jonathan Soma @dangerscarf data head, python kid, co-founder @bkbrains, director @ledeprog
 
