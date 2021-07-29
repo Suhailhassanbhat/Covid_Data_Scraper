@@ -8,15 +8,12 @@ import pandas as pd
 import requests
 import numpy as np
 from bs4 import BeautifulSoup
+
 import re
-import ghostscript
-import ctypes
-from ctypes.util import find_library
 import camelot
-import urllib3
-urllib3.disable_warnings()
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
+
 
 # In[2]:
 
@@ -67,6 +64,12 @@ latest_df=latest_df[:3]
 
 
 # In[4]:
+
+
+latest_df
+
+
+# In[5]:
 
 
 # this code is to read three links and grab all data from the first table
@@ -156,7 +159,7 @@ final_df.to_csv("data/master_cases_deaths.csv", index=False)
 
 # # Seven day average calculations and weekly and biweekly changes
 
-# In[5]:
+# In[6]:
 
 
 #filter master cases and deaths file
@@ -169,6 +172,11 @@ sorted_df=daily_df.sort_values('date')
 sorted_df['avg_cases']=sorted_df.new_cases.rolling(7).mean().round()
 sorted_df['avg_deaths']=sorted_df.new_deaths.rolling(7).mean().round()
 sorted_df['avg_actual_deaths']=sorted_df.actual_deaths.rolling(7).mean().round()
+
+#per 100k calculations
+ky_population=4467673 # population according to census bureau estimates 2019
+sorted_df['cases_per_100k']=(sorted_df.new_cases *100000/ky_population).round()
+sorted_df['avg_cases_per_100k']=(sorted_df.avg_cases *100000/ky_population).round()
 
 #weekly  changes
 sorted_df['pct_chng_cases_weekly']=(sorted_df.avg_cases.pct_change(periods=7)*100).round()
@@ -185,6 +193,89 @@ resorted_df=sorted_df.sort_values('date', ascending=False)
 #convert infinity values to nan values
 resorted_df=resorted_df.replace(np.inf, np.nan)
 resorted_df.to_csv("data/daily_report.csv", index=False)
+
+
+# # Testing scraper
+
+# In[7]:
+
+
+github_url="https://raw.githubusercontent.com/Suhailhassanbhat/Covid_Data_Scraper/main/data/master_testing.csv"
+test_df=pd.read_csv(github_url)
+test_df.date=pd.to_datetime(test_df.date)
+test_df[['tot_tests', 'total_pcr_tests', 'total_serology_tests',
+       'total_antigen_tests', 'total_positive_tests', 'total_pcr_positive',
+       'total_serology_positive', 'total_antigen_positive']]=test_df[['tot_tests', 'total_pcr_tests', 'total_serology_tests',
+       'total_antigen_tests', 'total_positive_tests', 'total_pcr_positive',
+       'total_serology_positive', 'total_antigen_positive']].apply(pd.to_numeric, errors = 'coerce')
+test_df.head()
+
+
+# In[8]:
+
+
+test_list=[]
+links=latest_df.link
+for link in links:
+    test_dict={}
+    tables=camelot.read_pdf(link, flavor='stream',table_areas=['37,121,580,60'], split_text=True)
+    # tables=camelot.read_pdf(link, flavor='stream',table_areas=['37,151,580,60'], split_text=True)
+
+    test_table=tables[0].df.iloc[3].str.replace(",", "")
+    test_dict['date']=link.split("Report")[1].replace(".pdf", "").replace("-COVID19","")
+    test_dict["tot_tests"]=test_table[0]
+    test_dict['total_pcr_tests']=test_table[1]
+    test_dict['total_serology_tests'] =test_table[2]
+    test_dict['total_antigen_tests']=test_table[3]
+    test_dict['total_positive_tests']=test_table[4]
+    test_dict['total_pcr_positive']=test_table[5]
+    test_dict['total_serology_positive']=test_table[6]
+    test_dict['total_antigen_positive']=test_table[7]
+    test_list.append(test_dict)
+latest_test_df=pd.DataFrame(test_list)
+latest_test_df.date=pd.to_datetime(latest_test_df.date, format='%m%d%y')
+
+latest_test_df[['tot_tests', 'total_pcr_tests', 'total_serology_tests',
+       'total_antigen_tests', 'total_positive_tests', 'total_pcr_positive',
+       'total_serology_positive', 'total_antigen_positive']]=latest_test_df[['tot_tests', 'total_pcr_tests', 'total_serology_tests',
+       'total_antigen_tests', 'total_positive_tests', 'total_pcr_positive',
+       'total_serology_positive', 'total_antigen_positive']].apply(pd.to_numeric, errors = 'coerce')
+
+#merge old data with the newly scraped one
+final_test_df=pd.concat([test_df, latest_test_df]).reset_index(drop=True)
+#drop duplicates
+final_test_df=final_test_df.drop_duplicates()
+#sort by date so that the latest date is at the top
+final_test_df=final_test_df.sort_values("date", ascending=False)
+final_test_df.to_csv("data/master_testing.csv", index=False)
+
+
+# In[9]:
+
+
+daily_tests=final_test_df[["date", "total_pcr_tests", "total_pcr_positive"]]
+daily_tests=daily_tests.sort_values("date", ascending=True)
+
+#calculate daily values
+daily_tests["daily_pcr"]=daily_tests.total_pcr_tests.diff()
+daily_tests["daily_pcr_positive"]=daily_tests.total_pcr_positive.diff()
+#per 100k calculations
+daily_tests['pcr_per_100k']=(daily_tests.daily_pcr *100000/ky_population).round()
+daily_tests['positive_pcr_per_100k']=(daily_tests.daily_pcr_positive *100000/ky_population).round()
+
+#weekly averages
+daily_tests['avg_pcr']=daily_tests.daily_pcr.rolling(7).mean().round()
+daily_tests['avg_pcr_positive']=daily_tests.daily_pcr_positive.rolling(7).mean().round()
+daily_tests['avg_pcr_per_100k']=daily_tests.pcr_per_100k.rolling(7).mean().round()
+daily_tests['avg_positive_pcr_per_100k']=daily_tests.positive_pcr_per_100k.rolling(7).mean().round()
+
+#positivity rate calculations
+daily_tests['daily_positive_rate']=(daily_tests.daily_pcr_positive*100/daily_tests.daily_pcr).round()
+daily_tests['avg_positive_rate']=(daily_tests.avg_pcr_positive*100/daily_tests.avg_pcr).round()
+
+daily_tests_resorted=daily_tests.sort_values('date', ascending=False)
+
+daily_tests_resorted.to_csv("data/daily_testing.csv", index=False)
 
 
 # In[ ]:
