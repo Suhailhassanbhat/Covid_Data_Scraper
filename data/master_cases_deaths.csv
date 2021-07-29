@@ -1,4 +1,5 @@
 date,tot_cases,tot_cases_conf,tot_cases_prob,tot_deaths,tot_deaths_conf,tot_deaths_prob,new_cases,new_deaths,audit_deaths,new_cases_conf,new_cases_prob,new_deaths_conf,new_deaths_prob,new_cases_18_and_under,new_cases_18_and_under_conf,new_cases_18_and_under_prob,actual_deaths
+2021-07-28,479431,358678.0,120753.0,7325.0,6565.0,760.0,1593.0,2.0,,876.0,717.0,2.0,0.0,343.0,168.0,175.0,2.0
 2021-07-27,477882,357829.0,120053.0,7323.0,6563.0,760.0,1273.0,4.0,,694.0,579.0,3.0,1.0,251.0,132.0,119.0,4.0
 2021-07-26,476650,357153.0,119497.0,7319.0,6560.0,759.0,783.0,2.0,,555.0,228.0,2.0,0.0,174.0,117.0,57.0,2.0
 2021-07-25,475878,356596.0,119282.0,7317.0,6558.0,759.0,504.0,2.0,,421.0,83.0,2.0,0.0,111.0,90.0,21.0,2.0
