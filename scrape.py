@@ -35,7 +35,7 @@ old_df[['tot_cases','tot_cases_conf','tot_cases_prob', 'tot_deaths',
 old_df.date=pd.to_datetime(old_df.date)
 
 
-# In[3]:
+# In[4]:
 
 
 # change this to run for other months
@@ -63,7 +63,7 @@ latest_df=latest_df.sort_values('date', ascending=False).reset_index(drop=True)
 latest_df=latest_df[:3]
 
 
-# In[4]:
+# In[5]:
 
 
 latest_df
@@ -276,6 +276,49 @@ daily_tests['avg_positive_rate']=(daily_tests.avg_pcr_positive*100/daily_tests.a
 daily_tests_resorted=daily_tests.sort_values('date', ascending=False)
 
 daily_tests_resorted.to_csv("data/daily_testing.csv", index=False)
+
+
+# # Hospitalizations, ICUS and ventilators
+
+# In[27]:
+
+
+hosp_url="https://raw.githubusercontent.com/Suhailhassanbhat/Covid_Data_Scraper/main/data/hospitalization_data.csv"
+hosp_df=pd.read_csv(hosp_url)
+hosp_df.date=pd.to_datetime(hosp_df.date)
+
+hosp_df[['hospitalized', 'in_icu', 'on_vent']]=hosp_df[[
+    'hospitalized', 'in_icu', 'on_vent']].apply(pd.to_numeric, errors = 'coerce')
+
+
+# In[28]:
+
+
+hosp_list=[]
+links=latest_df.link
+for link in links:
+    hosp_dict={}
+    tables=camelot.read_pdf(link, flavor='lattice', pages='2')
+    hosp_table=tables[2].df
+    hosp_dict["date"]=link.split("Report")[1].replace(".pdf", "").replace("-COVID19","")
+    hosp_dict["hospitalized"]=hosp_table.iloc[1][1]
+    hosp_dict["in_icu"]=hosp_table.iloc[2][1]
+    hosp_dict["on_vent"]=hosp_table.iloc[3][1]
+
+    hosp_list.append(hosp_dict)
+latest_hosp_df=pd.DataFrame(hosp_list)
+latest_hosp_df.date=pd.to_datetime(latest_hosp_df.date, format='%m%d%y')
+latest_hosp_df[['hospitalized', 'in_icu', 'on_vent']]=latest_hosp_df[['hospitalized', 'in_icu', 'on_vent']].apply(pd.to_numeric, errors = 'coerce')
+
+final_hosp_df=pd.concat([hosp_df,latest_hosp_df]).reset_index(drop=True)
+final_hosp_df=final_hosp_df.drop_duplicates()
+final_hosp_df=final_hosp_df.sort_values('date', ascending=False).reset_index(drop=True)
+
+
+# In[30]:
+
+
+final_hosp_df.to_csv("data/daily_hospitalizations.csv", index=False)
 
 
 # In[ ]:
