@@ -154,7 +154,7 @@ final_df.actual_deaths=final_df.actual_deaths.fillna(final_df.new_deaths)
 final_df=final_df.drop_duplicates()
 #sort by date so that the latest date is at the top
 final_df=final_df.sort_values("date", ascending=False)
-final_df.to_csv("master_cases_deaths.csv", index=False)
+final_df.to_csv("data/master_cases_deaths.csv", index=False)
 
 
 # # Seven day average calculations and weekly and biweekly changes
@@ -192,7 +192,7 @@ sorted_df['pct_chng_adeaths_biweekly']=(sorted_df.avg_actual_deaths.pct_change(p
 resorted_df=sorted_df.sort_values('date', ascending=False)
 #convert infinity values to nan values
 resorted_df=resorted_df.replace(np.inf, np.nan)
-resorted_df.to_csv("daily_report.csv", index=False)
+resorted_df.to_csv("data/daily_report.csv", index=False)
 
 
 # # Testing scraper
@@ -247,7 +247,7 @@ final_test_df=pd.concat([test_df, latest_test_df]).reset_index(drop=True)
 final_test_df=final_test_df.drop_duplicates()
 #sort by date so that the latest date is at the top
 final_test_df=final_test_df.sort_values("date", ascending=False)
-final_test_df.to_csv("master_testing.csv", index=False)
+final_test_df.to_csv("data/master_testing.csv", index=False)
 
 
 # In[9]:
@@ -275,7 +275,7 @@ daily_tests['avg_positive_rate']=(daily_tests.avg_pcr_positive*100/daily_tests.a
 
 daily_tests_resorted=daily_tests.sort_values('date', ascending=False)
 
-daily_tests_resorted.to_csv("daily_testing.csv", index=False)
+daily_tests_resorted.to_csv("data/daily_testing.csv", index=False)
 
 
 # # Hospitalizations, ICUS and ventilators
@@ -319,7 +319,7 @@ final_hosp_df=final_hosp_df.sort_values('date', ascending=False).reset_index(dro
 # In[54]:
 
 
-final_hosp_df.to_csv("hospitalization_data.csv", index=False)
+final_hosp_df.to_csv("data/hospitalization_data.csv", index=False)
 
 
 # In[ ]:
