@@ -301,9 +301,9 @@ for link in links:
     tables=camelot.read_pdf(link, flavor='lattice', pages='2')
     hosp_table=tables[2].df
     hosp_dict["date"]=link.split("Report")[1].replace(".pdf", "").replace("-COVID19","")
-    hosp_dict["hospitalized"]=hosp_table.iloc[1][1]
-    hosp_dict["in_icu"]=hosp_table.iloc[2][1]
-    hosp_dict["on_vent"]=hosp_table.iloc[3][1]
+    hosp_dict["hospitalized"]=hosp_table.iloc[1][1].replace(",", "")
+    hosp_dict["in_icu"]=hosp_table.iloc[2][1].replace(",", "")
+    hosp_dict["on_vent"]=hosp_table.iloc[3][1].replace(",", "")
 
     hosp_list.append(hosp_dict)
 latest_hosp_df=pd.DataFrame(hosp_list)
