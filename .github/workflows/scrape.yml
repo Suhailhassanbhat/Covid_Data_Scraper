@@ -16,7 +16,7 @@ jobs:
       - name: Install all necessary packages
         run: pip install requests beautifulsoup4 pandas regex numpy urllib3
       - name: Install ghostscript dependency
-        run: sudo apt-get update && sudo apt-get install ghostscript -y
+        run: sudo apt-get install launchpad-getkeys && sudo launchpad-getkeys && sudo apt-get update && sudo apt-get install ghostscript -y
       - name: Install camelot packages
         run: pip install camelot-py[cv]
       - name: Run the scraping script
