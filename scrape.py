@@ -39,7 +39,7 @@ old_df.date=pd.to_datetime(old_df.date)
 
 
 # change this to run for other months
-month="Aug." 
+month="Sept." 
 # read monthly covid page
 response=requests.get(f"https://chfs.ky.gov/Pages/cvdaily.aspx?View={month}%202021%20Daily%20Summaries&Title=Table%20Viewer%20Webpart", verify=False)
 #create an empty list for links
