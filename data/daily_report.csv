@@ -1,4 +1,5 @@
 date,new_cases,new_deaths,actual_deaths,avg_cases,avg_deaths,avg_actual_deaths,cases_per_100k,avg_cases_per_100k,pct_chng_cases_weekly,pct_chng_deaths_weekly,pct_chng_adeaths_weekly,pct_chng_cases_biweekly,pct_chng_deaths_biweekly,pct_chng_adeaths_biweekly
+2021-09-10,5197.0,32.0,32.0,3989.0,23.0,23.0,116.0,89.0,-7.0,0.0,0.0,-1.0,-4.0,-4.0
 2021-09-09,5252.0,36.0,36.0,3977.0,21.0,21.0,118.0,89.0,-6.0,-5.0,-5.0,2.0,-5.0,-5.0
 2021-09-08,4468.0,30.0,30.0,4006.0,23.0,23.0,100.0,90.0,-5.0,21.0,21.0,5.0,15.0,15.0
 2021-09-07,2356.0,5.0,5.0,4073.0,20.0,20.0,53.0,91.0,-3.0,-26.0,-26.0,12.0,67.0,67.0
